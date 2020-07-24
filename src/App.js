@@ -2,7 +2,21 @@ import React, { Component, useState } from "react";
 // import logo from "./logo.svg";
 import Person from "./Person/Person.js";
 import "./App.css";
-import Radium, { StyleRoot } from "radium";
+import styled from "styled-components";
+// import Radium, { StyleRoot } from "radium";
+
+const ButtonStyle = styled.button`
+  padding: 8px;
+  font: inherit;
+  border: 2px solid black;
+  cursor: pointer;
+  background: ${(props) => (props.colorInfo ? "red" : "green")};
+  color: white;
+  &:hover {
+    background-color: ${(props) =>
+      props.colorInfo ? "#ffcccb" : "lightgreen"};
+  }
+`;
 
 class App extends Component {
   state = {
@@ -67,17 +81,17 @@ class App extends Component {
   };
 
   render() {
-    const buttonStyle = {
-      padding: "8px",
-      font: "inherit",
-      border: "2px solid green",
-      cursor: "pointer",
-      backgroundColor: "green",
-      color: "white",
-      ":hover": {
-        backgroundColor: "lightgreen",
-      },
-    };
+    // const buttonStyle = {
+    //   padding: "8px",
+    //   font: "inherit",
+    //   border: "2px solid green",
+    //   cursor: "pointer",
+    //   backgroundColor: "green",
+    //   color: "white",
+    //   ":hover": {
+    //     backgroundColor: "lightgreen",
+    //   },
+    // };
 
     let persons = null;
 
@@ -111,31 +125,30 @@ class App extends Component {
         </div>
       );
 
-      buttonStyle.backgroundColor = "red";
-      buttonStyle[":hover"] = {
-        backgroundColor: "#ffcccb",
-      };
+      // buttonStyle.backgroundColor = "red";
+      // buttonStyle[":hover"] = {
+      //   backgroundColor: "#ffcccb",
+      // };
     }
 
     return (
-      <StyleRoot>
-        <div className="App">
-          <h1 className={classes.join(" ")}>Hi i am react app</h1>
-          <button
-            style={buttonStyle}
-            // onClick={() => this.switchNameHandler("laxmana")}
-            onClick={this.togglePersonsHandler}
-          >
-            Toggle persons
-          </button>
+      <div className="App">
+        <h1 className={classes.join(" ")}>Hi i am react app</h1>
+        <ButtonStyle
+          colorInfo={this.state.showPersons}
+          // onClick={() => this.switchNameHandler("laxmana")}
+          onClick={this.togglePersonsHandler}
+        >
+          Toggle persons
+        </ButtonStyle>
 
-          {persons}
-        </div>
-      </StyleRoot>
+        {persons}
+      </div>
     );
   }
 }
-export default Radium(App);
+// export default Radium(App);
+export default App;
 
 /* 
 
