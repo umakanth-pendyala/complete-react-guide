@@ -1,8 +1,11 @@
 import React, { Component, useState } from "react";
-// import logo from "./logo.svg";
-import Person from "./Person/Person.js";
-import "./App.css";
 import styled from "styled-components";
+
+import Person from "../Components/Persons/Person/Person.js";
+import Cockpit from "../Components/Cockpit/Cockpit.js";
+import Persons from "../Components/Persons/Persons.js";
+import "./App.css";
+
 // import Radium, { StyleRoot } from "radium";
 
 const ButtonStyle = styled.button`
@@ -95,20 +98,26 @@ class App extends Component {
 
     let persons = null;
 
-    const classes = [];
+    // const classes = [];
 
-    if (this.state.persons.length <= 2) {
-      classes.push("red");
-    }
+    // if (this.state.persons.length <= 2) {
+    //   classes.push("red");
+    // }
 
-    if (this.state.persons.length <= 1) {
-      classes.push("bold");
-    }
+    // if (this.state.persons.length <= 1) {
+    //   classes.push("bold");
+    // }
 
     if (this.state.showPersons) {
       persons = (
         <div>
-          {this.state.persons.map((person, arrayIndex) => {
+          <Persons
+            persons={this.state.persons}
+            deletePerson={this.deletePersonHandler}
+            changeName={this.nameChangeHandler}
+          />
+
+          {/* {this.state.persons.map((person, arrayIndex) => {
             return (
               <Person
                 name={person.name}
@@ -121,7 +130,7 @@ class App extends Component {
                 }}
               />
             );
-          })}
+          })} */}
         </div>
       );
 
@@ -133,15 +142,20 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1 className={classes.join(" ")}>Hi i am react app</h1>
-        <ButtonStyle
+        {/* <h1 className={classes.join(" ")}>Hi i am react app</h1> */}
+        <Cockpit
+          heading="Hi i am react app"
+          shouldIShowPersons={this.state.showPersons}
+          executeTogglePersonsMethod={this.togglePersonsHandler}
+          persons={this.state.persons}
+        />
+        {/* <ButtonStyle
           colorInfo={this.state.showPersons}
           // onClick={() => this.switchNameHandler("laxmana")}
           onClick={this.togglePersonsHandler}
         >
           Toggle persons
-        </ButtonStyle>
-
+        </ButtonStyle> */}
         {persons}
       </div>
     );
@@ -149,98 +163,3 @@ class App extends Component {
 }
 // export default Radium(App);
 export default App;
-
-/* 
-
-******************************* Helper notes ***************************************
-
-map method returns a new array, which can be stored into a different const/variable and then returned
-or it can be returned without being stored into a new variable.
-
-
-<Person
-  //this way is recomended
-  click={this.switchNameHandler.bind(this, "new name")}
-  name={this.state.persons[0].name}
-  age={this.state.persons[0].age}
-/>
-<Person
-  name={this.state.persons[1].name}
-  age={this.state.persons[1].age}
-  nameChanged={this.nameChangeHandler}
-/>
-<Person
-  name={this.state.persons[2].name}
-  age={this.state.persons[2].age}
->
-  {this.state.messageByLaxman}
-</Person> 
-
-
-
-*******************************
-
-*/
-
-/*
- ********************
- ********************
- ********************
- ********************
- ********************
- ********************
- ********************
- ********************
- ********************
- ********************
- ********************
- ********************
- ********************
- ********************
- */
-
-// if you want to use functional components
-// const app = (props) => {
-//   const [personState, setPersonState] = useState({
-//     persons: [
-//       { name: "umakanth", age: 19 },
-//       { name: "sriram", age: 23 },
-//       { name: "laxman", age: 15 },
-//     ],
-//     messageByLaxman: "i am younger than both of you",
-//   });
-
-//   const switchNameHandler = () => {
-//     setPersonState({
-//       persons: [
-//         { name: "rama", age: 19 },
-//         { name: "rama", age: 19 },
-//         { name: "rama", age: 19 },
-//       ],
-//       messageByLaxman: "i am elder than both of you",
-//     });
-//   };
-
-//   return (
-//     <div className="App">
-//       <h1>Hi i am react app</h1>
-//       <button onClick={switchNameHandler}> Switch name </button>
-//       <Person
-//         name={personState.persons[0].name}
-//         age={personState.persons[0].age}
-//       />
-//       <Person
-//         name={personState.persons[1].name}
-//         age={personState.persons[1].age}
-//       />
-//       <Person
-//         name={personState.persons[2].name}
-//         age={personState.persons[2].age}
-//       >
-//         {personState.messageByLaxman}
-//       </Person>
-//     </div>
-//   );
-// };
-
-// export default app;
