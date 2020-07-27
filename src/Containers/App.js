@@ -84,7 +84,43 @@ class App extends Component {
   };
 
   render() {
-    // const buttonStyle = {
+    let persons = null;
+
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          <Persons
+            persons={this.state.persons}
+            deletePerson={this.deletePersonHandler}
+            changeName={this.nameChangeHandler}
+          />
+        </div>
+      );
+    }
+
+    return (
+      <div className="App">
+        <Cockpit
+          heading="Hi i am react app"
+          shouldIShowPersons={this.state.showPersons}
+          executeTogglePersonsMethod={this.togglePersonsHandler}
+          persons={this.state.persons}
+        />
+
+        {persons}
+      </div>
+    );
+  }
+}
+// export default Radium(App);
+export default App;
+
+// **********************Removed while optimising the code ******************************
+
+/*
+
+
+      // const buttonStyle = {
     //   padding: "8px",
     //   font: "inherit",
     //   border: "2px solid green",
@@ -96,7 +132,8 @@ class App extends Component {
     //   },
     // };
 
-    let persons = null;
+
+
 
     // const classes = [];
 
@@ -108,21 +145,16 @@ class App extends Component {
     //   classes.push("bold");
     // }
 
-    if (this.state.showPersons) {
-      persons = (
-        <div>
-          <Persons
-            persons={this.state.persons}
-            deletePerson={this.deletePersonHandler}
-            changeName={this.nameChangeHandler}
-          />
 
-          {/* {this.state.persons.map((person, arrayIndex) => {
+         {this.state.persons.map((person, arrayIndex) => {
             return (
               <Person
                 name={person.name}
                 age={person.age}
                 click={this.deletePersonHandler.bind(this, arrayIndex)}
+                click = {() {
+                  this.deletePersonHandler(arrayIndex)
+                }}
                 //if key is included then the rendering of the data will be efficient
                 key={person.id}
                 nameChanged={(event) => {
@@ -130,36 +162,26 @@ class App extends Component {
                 }}
               />
             );
-          })} */}
-        </div>
-      );
+          })}
+
 
       // buttonStyle.backgroundColor = "red";
       // buttonStyle[":hover"] = {
       //   backgroundColor: "#ffcccb",
       // };
-    }
 
-    return (
-      <div className="App">
-        {/* <h1 className={classes.join(" ")}>Hi i am react app</h1> */}
-        <Cockpit
-          heading="Hi i am react app"
-          shouldIShowPersons={this.state.showPersons}
-          executeTogglePersonsMethod={this.togglePersonsHandler}
-          persons={this.state.persons}
-        />
-        {/* <ButtonStyle
-          colorInfo={this.state.showPersons}
-          // onClick={() => this.switchNameHandler("laxmana")}
-          onClick={this.togglePersonsHandler}
-        >
-          Toggle persons
-        </ButtonStyle> */}
-        {persons}
-      </div>
-    );
-  }
-}
-// export default Radium(App);
-export default App;
+
+              {/* <h1 className={classes.join(" ")}>Hi i am react app</h1> 
+              
+
+
+        //  <ButtonStyle
+        //   colorInfo={this.state.showPersons}
+        //   // onClick={() => this.switchNameHandler("laxmana")}
+        //   onClick={this.togglePersonsHandler}
+        // >
+        //   Toggle persons
+        // </ButtonStyle> 
+
+
+        */
